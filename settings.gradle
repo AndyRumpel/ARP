@@ -1,0 +1,2 @@
+rootProject.name = "ARP"
+include ':app'

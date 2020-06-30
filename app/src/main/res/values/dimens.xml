@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="editTextHeight">48dp</dimen>
+    <dimen name="loginbutton_height">52dp</dimen>
+</resources>
