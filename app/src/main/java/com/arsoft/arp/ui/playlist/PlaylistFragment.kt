@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arsoft.arp.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaylistFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

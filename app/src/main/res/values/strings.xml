@@ -15,4 +15,5 @@
     <string name="password_hint">Password</string>
     <string name="loginbutton_text">LOG IN</string>
     <string name="credentials_is_empty">Введите учетные данные</string>
+    <string name="invalid_credentials">Введены неверные учетные данные</string>
 </resources>

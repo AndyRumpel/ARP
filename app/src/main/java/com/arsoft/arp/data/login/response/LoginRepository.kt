@@ -1,7 +1,8 @@
 package com.arsoft.arp.data.login.response
 
-import com.arsoft.arp.data.login.models.LoginModel
+
 import com.arsoft.arp.data.login.request.LoginService
+import javax.inject.Inject
 
 class LoginRepository(private val apiService: LoginService) {
 
@@ -11,7 +12,7 @@ class LoginRepository(private val apiService: LoginService) {
     val SCOPE = "audio"
 
 
-    suspend fun login(username: String, password: String): LoginModel {
+    suspend fun login(username: String, password: String): LoginResponse {
         return apiService.login(
             grantType = GRANT_TYPE,
             clientId = CLIENT_ID,
