@@ -7,3 +7,4 @@ fun <T: Any?> MutableLiveData<T>.default(defaultValue: T) = apply{ postValue(def
 
 //Set new value for any type of MutableLivaData
 fun <T> MutableLiveData<T>.set(newValue: T) = apply{ postValue(newValue)}
+

@@ -5,7 +5,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface LoginService {
+interface LoginApiService {
 
     @GET(value = "token")
     fun login(

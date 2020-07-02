@@ -1,6 +1,8 @@
 package com.arsoft.arp.di.modules
 
-import com.arsoft.arp.data.login.request.LoginService
+import com.arsoft.arp.data.login.request.LoginApiHelper
+import com.arsoft.arp.data.login.request.LoginApiHelperImpl
+import com.arsoft.arp.data.login.request.LoginApiService
 import com.arsoft.arp.helpers.interceptors.UserAgentInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -13,11 +15,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
-object NetworkModule {
+object LoginNetworkModule {
 
     @Provides
     @Singleton
@@ -35,6 +38,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @Named("VK_OAUTH")
     fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl("https://oauth.vk.com/")
@@ -45,6 +49,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLoginService(retrofit: Retrofit): LoginService =
-        retrofit.create(LoginService::class.java)
+    fun provideLoginService(@Named("VK_OAUTH")retrofit: Retrofit): LoginApiService =
+        retrofit.create(LoginApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLoginApiHelper(loginApiHelper: LoginApiHelperImpl): LoginApiHelper = loginApiHelper
 }

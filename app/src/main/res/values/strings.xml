@@ -16,4 +16,7 @@
     <string name="loginbutton_text">LOG IN</string>
     <string name="credentials_is_empty">Введите учетные данные</string>
     <string name="invalid_credentials">Введены неверные учетные данные</string>
+    <string name="playlist_loading_failed">Не удалось загрузить плейлист</string>
+    <string name="nothing_to_show">Список аудиозаписей пуст</string>
+    <string name="empty_user_id">ID пользователя не может быть пустым</string>
 </resources>

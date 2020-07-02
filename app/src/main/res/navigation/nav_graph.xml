@@ -8,14 +8,21 @@
         android:id="@+id/loginFragment"
         android:name="com.arsoft.arp.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_playlistFragment"
-            app:destination="@id/playlistFragment" />
+            app:destination="@id/playlistFragment"
+            app:enterAnim="@anim/fragment_fade_enter"/>
+        <argument
+            android:name="accessToken"
+            android:defaultValue="empty"
+            app:argType="string" />
+
+
     </fragment>
     <fragment
         android:id="@+id/playlistFragment"
-        android:name="com.arsoft.arp.ui.playlist.PlaylistFragment"
+        android:name="com.arsoft.arp.ui.playlist.view.PlaylistFragment"
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist" />
 </navigation>

@@ -1,11 +1,11 @@
 package com.arsoft.arp.mvvm.login.viewmodel
 
-import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.arsoft.arp.R
-import com.arsoft.arp.app.prefs
-import com.arsoft.arp.data.DataProvider
-import com.arsoft.arp.data.login.request.LoginService
+import com.arsoft.arp.data.login.repository.LoginRepository
+import com.arsoft.arp.helpers.Prefs
 import com.arsoft.arp.helpers.default
 import com.arsoft.arp.helpers.set
 import com.arsoft.arp.mvvm.login.states.LoginState
@@ -14,29 +14,30 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.lang.Exception
-import javax.inject.Inject
 
 
-class LoginViewModel {
+class LoginViewModel @ViewModelInject constructor(
+    private val loginRepository: LoginRepository,
+    private val prefs: Prefs
+): ViewModel() {
 
-    @Inject
-    lateinit var loginApiService: LoginService
     val state = MutableLiveData<LoginState>().default(defaultValue = LoginState.DefaultState())
 
-    private val loginRepository = DataProvider.provideLogin(apiService = loginApiService)
 
     fun login(username: String, password: String) {
-        Log.e("apiService", "APISERVICE: ${loginApiService.hashCode()}")
         state.set(newValue = LoginState.SendingState())
         if (username == "" && password == "") {
             state.set(newValue = LoginState.ErrorState(R.string.credentials_is_empty))
         } else {
             CoroutineScope(Dispatchers.IO).async {
                 try {
-                    val loginResponse = loginRepository.login(username = username, password = password)
+                    val loginResponse = loginRepository.login(username = username, password = password).await()
                     if (loginResponse.accessToken.isNotEmpty()) {
                         launch(Dispatchers.Main){
-                            state.set(newValue = LoginState.LoginSucceededState())
+                            state.set(newValue = LoginState.LoginSucceededState(
+                                    accessToken = loginResponse.accessToken,
+                                    userId = loginResponse.userId
+                            ))
                         }
                     } else {
                         launch(Dispatchers.Main) {
