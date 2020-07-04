@@ -60,6 +60,10 @@ class LoginFragment : Fragment() {
                         is Int -> showMessage(state.message)
                         is String -> showMessage(state.message)
                     }
+                    username_input.isEnabled = true
+                    password_input.isEnabled = true
+                    login_button.visibility = View.VISIBLE
+                    loading_cpv.visibility = View.INVISIBLE
                 }
                 is LoginState.DefaultState -> {
                     username_input.isEnabled = true

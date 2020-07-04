@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.arsoft.arp.R
 import com.arsoft.arp.data.vk.repository.VkRepository
+import com.arsoft.arp.helpers.Prefs
 import com.arsoft.arp.helpers.default
 import com.arsoft.arp.helpers.set
 import com.arsoft.arp.mvvm.playlist.states.PlaylistStates
@@ -15,12 +16,14 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class PLaylistViewModel @ViewModelInject constructor(
-        private val vkRepository: VkRepository
+        private val vkRepository: VkRepository,
+        private val prefs: Prefs
 ): ViewModel(){
 
     val state = MutableLiveData<PlaylistStates>().default(defaultValue = PlaylistStates.DefaultState())
 
-    fun getPlaylist(userId: Int) {
+    fun getPlaylist() {
+        val userId = prefs.userId
         state.set(newValue = PlaylistStates.LoadingState())
         if (userId == 0) {
             state.set(newValue = PlaylistStates.ErrorState(R.string.empty_user_id))

@@ -3,11 +3,13 @@ package com.arsoft.arp.ui.playlist.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.arsoft.arp.R
 import com.arsoft.arp.data.vk.models.TrackModel
 import com.arsoft.arp.helpers.DurationFormatHelper
+import com.squareup.picasso.Picasso
 import kotlin.collections.ArrayList
 
 class PlaylistAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -35,11 +37,18 @@ class PlaylistAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         val artistTxt = itemView.findViewById<TextView>(R.id.artist)
         val titleTxt = itemView.findViewById<TextView>(R.id.title)
         val durationTxt = itemView.findViewById<TextView>(R.id.duration)
+        val albumImage = itemView.findViewById<ImageView>(R.id.album_image)
 
         fun bind(model: TrackModel) {
             artistTxt.text = model.artist
             titleTxt.text = model.title
             durationTxt.text = DurationFormatHelper.durationFormat(model.duration)
+
+            if (model.album != null) {
+                Picasso.get()
+                        .load(model.album.thumb.photo_68)
+                        .into(albumImage)
+            }
         }
     }
 }

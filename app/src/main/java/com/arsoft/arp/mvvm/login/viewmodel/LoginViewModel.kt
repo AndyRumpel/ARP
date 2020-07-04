@@ -38,11 +38,13 @@ class LoginViewModel @ViewModelInject constructor(
                                     accessToken = loginResponse.accessToken,
                                     userId = loginResponse.userId
                             ))
+                            prefs.accessToken = loginResponse.accessToken
+                            prefs.userId = loginResponse.userId
                         }
                     } else {
                         launch(Dispatchers.Main) {
                             state.set(newValue = LoginState.ErrorState(message = R.string.invalid_credentials))
-                            prefs.accessToken = loginResponse.accessToken
+
                         }
                     }
                 } catch (e: Exception) {

@@ -38,8 +38,7 @@ class PlaylistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        prefs.accessToken = requireArguments().getString("access_token")!!
-        viewModel.getPlaylist(userId = requireArguments().getInt("user_id"))
+        viewModel.getPlaylist()
 
         adapter = PlaylistAdapter()
         layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
