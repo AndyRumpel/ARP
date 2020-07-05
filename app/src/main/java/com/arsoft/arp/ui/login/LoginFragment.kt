@@ -51,9 +51,12 @@ class LoginFragment : Fragment() {
                     loading_cpv.visibility = View.VISIBLE
                 }
                 is LoginState.LoginSucceededState -> {
-                    val bundle = bundleOf("access_token" to state.accessToken)
-                    bundle.putInt("user_id", state.userId)
-                    view.findNavController().navigate(R.id.action_loginFragment_to_playlistFragment, bundle)
+                    val navController = view.findNavController()
+                    with(navController) {
+                        navigate(R.id.playlistFragment)
+                        graph = navInflater.inflate(R.navigation.main_nav_graph)
+                    }
+
                 }
                 is LoginState.ErrorState<*> -> {
                     when(state.message) {
@@ -74,6 +77,7 @@ class LoginFragment : Fragment() {
             }
         })
     }
+
 
     private fun <T: Any> showMessage(message: T) {
         when(message) {
